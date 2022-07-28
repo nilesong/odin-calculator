@@ -1,0 +1,84 @@
+body {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #BA99C2;
+}
+
+h1 {
+    margin-bottom: 50px;
+    font-family: Arial, Helvetica, sans-serif
+}
+
+button {
+    height: 100px;
+    width: 100px;
+    border-width: 1px 1px 0px 0px;
+    border-style: solid;
+    border-color: black;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.box {
+    height: 500px;
+    width: 400px;
+    display: flex;
+    flex-wrap: wrap;
+    border-width: 1px 0px 1px 1px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 25px;
+}
+
+.display {
+    height: 100px;
+    width: 400px;
+    font-size: 40px;
+    word-break: break-all;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-end;
+    flex-direction: column-reverse;
+    justify-content: flex-start;
+    background-color: #F5F0F6;
+    border-width: 0px 1px 0px 0px;
+    border-style: solid;
+    border-color: black;
+    border-radius: 25px 25px 0 0;
+}
+
+.digits {
+    background-color: #2B4162;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+
+}
+
+.clear {
+    background-color: #385F71;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+    border-radius: 0 0 0 25px;
+}
+
+.equal {
+    background-color: #8F754F;
+    color: white;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.operator {
+    background-color: #D7B377;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+#plus {
+    border-radius: 0 0 25px 0;
+}

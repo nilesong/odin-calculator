@@ -66,44 +66,85 @@ function operateDisplay() {
 
 
 
-//Buttons and Initialization
+//Buttons, Display and Initialization
 const buttons = document.querySelectorAll('.evaluate');
 const clearButton = document.querySelector('.clear');
 const equalButton = document.querySelector('.equal');
-const display = document.querySelector('div');
+const display = document.querySelector('.display');
 let displayValue = [];
+let resultOnDisplay = false;
+let isOperatorActive = false;
 let operatorText;
 
-//Digits and Operators
+//On Click: Digits and Operators
 buttons.forEach((button) => {
     button.addEventListener('click', (e) => {
-        if ((displayValue[displayValue.length - 1] === '+' || displayValue[displayValue.length - 1] === '-' || displayValue[displayValue.length - 1] === '*' || displayValue[displayValue.length - 1] === '/') && button.classList[1] !== 'digits') {
-            //Replace Operator & Display
-            operatorText = display.innerText;
-            operatorText = operatorText.split('');
-            operatorText.splice(operatorText.length - 1, 1, e.srcElement.innerText);
-            operatorText = operatorText.join('');
-            display.innerText = operatorText;
-            displayValue = display.innerText;
-        } else {
-            display.innerText += e.srcElement.innerText;
-            displayValue = display.innerText;
+        if (!(typeof (displayValue[0]) === 'undefined' && button.classList[1] === 'operator')) {
+            //Clear Results if visible
+            if (resultOnDisplay && button.classList[1] === 'digits') {
+                resultOnDisplay = false;
+                displayValue = []
+                display.innerText = [];
+            } else {
+                resultOnDisplay = false;
+            }
+
+            //Active Operator counter & Place operator
+            if (button.classList[1] === 'operator' && !isOperatorActive) {
+                isOperatorActive = true;
+                console.log(isOperatorActive);
+                display.innerText += e.srcElement.innerText;
+                displayValue = display.innerText;
+
+            }
+
+            if ((displayValue[displayValue.length - 1] === '+' || displayValue[displayValue.length - 1] === '-' ||
+                displayValue[displayValue.length - 1] === '*' || displayValue[displayValue.length - 1] === '/') && button.classList[1] !== 'digits') {
+                //Replace Operator & Display
+                operatorText = display.innerText;
+                operatorText = operatorText.split('');
+                operatorText.splice(operatorText.length - 1, 1, e.srcElement.innerText);
+                operatorText = operatorText.join('');
+                display.innerText = operatorText;
+                displayValue = display.innerText;
+            } else if ((displayValue[displayValue.length - 1] !== '+' || displayValue[displayValue.length - 1] !== '-' ||
+                displayValue[displayValue.length - 1] !== '*' || displayValue[displayValue.length - 1] !== '/') &&
+                button.classList[1] === 'operator' && isOperatorActive) {
+                //Calculate if there is existing operator
+                if (displayValue.length === 0) {
+                    display.innerText = 'ERROR!';
+                } else {
+                    operateDisplay();
+                    resultOnDisplay = false;
+                    display.innerText += e.srcElement.innerText;
+                    displayValue = display.innerText;
+                }
+                console.log('compute');
+            }
+            else {
+                //Display numbers
+                display.innerText += e.srcElement.innerText;
+                displayValue = display.innerText;
+            }
         }
     })
 })
 
-//Clear
+//On Click: Clear
 clearButton.addEventListener('click', (e) => {
     display.innerText = [];
     displayValue = [];
+    isOperatorActive = false;
 })
 
-//Equal
+//On Click: Equal
 equalButton.addEventListener('click', (e) => {
     if (displayValue.length === 0) {
         display.innerText = 'ERROR!';
     } else {
         operateDisplay();
+        resultOnDisplay = true;
+        isOperatorActive = false;
     }
 })
 
